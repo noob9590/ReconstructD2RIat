@@ -9,7 +9,7 @@ This plugin will do it with the help of OverwatchDumpFix plugin so make sure you
 2. Copy the files to x64dbg plugin folder.
 3. Open x64dbg as admin and attach D2R process.
 4. Use Scylla to find the virtual address and size of the import address table (advanced search).
-5. Enter the command ReconstructD2RIAT 0x<IAT Virtual Address>, 0x<IAT Size> (for example: ReconstructD2RIAT 0x00007ff12345678, 0x1170).
+5. Enter the command ReconstructD2RIAT 0x\<IAT Virtual Address\>, 0x\<IAT Size\> (for example: ReconstructD2RIAT 0x00007ff12345678, 0x1170).
 6. Use Scylla reselect D2R process and dump the file.
 7. Fix the dump.
 8. Rebuild the PE.
