@@ -1,0 +1,8 @@
+.vs/
+ipch/
+bin/
+PluginDevBuildTool.exe
+x64/
+Debug/
+Release/
+*.vcxproj.user
