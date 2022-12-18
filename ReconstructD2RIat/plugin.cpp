@@ -89,12 +89,14 @@ static bool cbReconstructIAT(int argc, char* argv[])
     if (!DbgCmdExecDirect("OverwatchDumpFix"))
     {
         _plugin_logprintf("[" PLUGIN_NAME "]:: cbReconstructIAT:: DbgCmdExec failed\n");
+        delete[] iat_mem;
         return false;
     }
 
     if (!DbgMemRead(va_iat_addr, (void*)iat_mem, iat_size))
     {
         _plugin_logprintf("[" PLUGIN_NAME "]:: cbReconstructIAT:: DbgMemRead failed\n");
+        delete[] iat_mem;
         return false;
     }
 
@@ -103,6 +105,7 @@ static bool cbReconstructIAT(int argc, char* argv[])
     if (!Script::Module::GetList(&modules))
     {
         _plugin_logprintf("[" PLUGIN_NAME "]:: cbReconstructIAT:: GetList failed\n");
+        delete[] iat_mem;
         return false;
     }
 
@@ -124,6 +127,7 @@ static bool cbReconstructIAT(int argc, char* argv[])
                 if (!Script::Module::GetExports(&modules[j], &exports))
                 {
                     _plugin_logprintf("[" PLUGIN_NAME "]:: cbReconstructIAT:: GetExports failed for module: %s\n", modules[j].name);
+                    delete[] iat_mem;
                     return false;
                 }
 
@@ -135,6 +139,7 @@ static bool cbReconstructIAT(int argc, char* argv[])
                         if (!DbgMemWrite(va_iat_addr + i * 8, (void*)&candidate, 8))
                         {
                             _plugin_logprintf("[" PLUGIN_NAME "]:: cbReconstructIAT:: DbgMemWrite failed\n");
+                            delete[] iat_mem;
                             return false;
                         }
                     }
@@ -142,6 +147,8 @@ static bool cbReconstructIAT(int argc, char* argv[])
             }
         }
     }
+
+    delete[] iat_mem;
 
     return true;
 
